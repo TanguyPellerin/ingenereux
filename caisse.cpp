@@ -1,68 +1,45 @@
-#include "caisse.hpp"
-#include "produit.hpp"
+#include "caisse.h"
+#include "produit.h"
+#include "ajout.h"
 #include <string.h>
-#include <stdio.h>
 #include <vector>
 #include <iostream>
 
 using namespace std;
 
 
-void afficherlisteproduit(vector<Produit> tabproduit)
+int Caisse::prix(vector<Produit> tablisteclient)
 {
-    for (int i=0; i<tabproduit.size(); i++)
+    int prixtot = 0;
+    for (int i=0; i<tablisteclient.size(); i++)
     {
-        tabproduit[i].affichage();
+        prixtot += tablisteclient[i].infoPrix()*tablisteclient[i].infoquantite();
     }
-    
+    cout << "Le prix total est : " << prixtot << " €" << endl;
+    return prixtot;
 }
 
 
 void Caisse::pay(vector<Produit> tabproduit, vector<Produit> tablisteclient)
 {
     int nbrArticle;
+    string choix;
     cout << "Combien d'article avez vous a scanner : ";
     cin >> nbrArticle;
     for (int i=0; i<nbrArticle; i++)
     {
-        Caisse:scan(tabproduit, &tablisteclient);
+        scan(tabproduit, &tablisteclient);
     }
     afficherlisteproduit(tablisteclient);
-    
-    
-}
-
-
-int trouverElementCodebarre(vector<Produit> tabproduit, int element)
-{
-    
-    //int i = find(tabproduit.begin(), tabproduit.back(), element)
-    int i;
-    for (i=0; i<tabproduit.size(); i++)
+    cout << "Voulez vous rescanner un article ? oui ou non " ;
+    cin >> choix;
+    while (choix=="oui")
     {
-        if (tabproduit[i].codebarre()==element)
-        {
-            break;
-        }
+        scan(tabproduit, &tablisteclient);
+        cout << "Voulez vous rescanner un article ? oui ou non " ;
+        cin >> choix;
     }
-    
-    return i;
-}
-
-
-int trouverElementNom(vector<Produit> tabproduit, string element)
-{
-    
-    int i=0;
-    for (i=0; i<tabproduit.size(); i++)
-    {
-        if (tabproduit[i].p_nomProduit==element)
-        {
-            break;
-        }
-    }
-    
-    return i;
+    prix(tablisteclient);
 }
 
 
@@ -78,6 +55,18 @@ void Caisse::scan(vector<Produit> tabproduit, vector<Produit> *tablisteclient)
     tablisteclient->push_back(tabproduit[position]);
 }
 
+
+void Caisse::rajoutsctock(vector<Produit> tabProduit)
+{
+    int codebarre, position, nbrProduit;
+    cout << "Quelle est le produit rajouter codebarre  : ";
+    cin >> codebarre;
+    position = trouverElementCodebarre(tabProduit, codebarre);
+    cout << "Combien de ce Produit voulez vous rajouter : ";
+    cin >> nbrProduit;
+    tabProduit[position].ajoutquantite(nbrProduit);
+    
+}
 
 
 
