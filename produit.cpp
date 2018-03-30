@@ -1,67 +1,45 @@
-#include <iostream>
-#include <vector>
-#include <stdio.h>
 #include "produit.hpp"
-#include "caisse.hpp"
+#include <string.h>
+#include <stdio.h>
+#include <iostream>
+
 
 using namespace std;
 
-
-void ajoutProduit(vector<Produit> *tabproduit);
-void afficherlisteproduit(vector<Produit> tabproduit);
-void supprimerproduit(vector<Produit> *tabproduit);
-int trouverelement(vector<Produit> tabproduit, string Psupprimer);
-
-
-int main()
+void Produit::modif_prix(int newPrix)
 {
-    //vector<Produit> tabproduit, tablisteclient;
-    //Caisse caisse1;
-    //caisse1.pay(tabproduit, tablisteclient);
-    
-    
-    return 0;
+    p_prix = newPrix;
 }
 
 
-void ajoutProduit(vector<Produit> *tabproduit)
+
+void Produit::modif_quantite(int Vquantite)
 {
-    int prix, quantite, codebarre;
-    string categorie, detail, nomProduit;
-    cout << "Quel est le nom du produit : ";
-    cin >> nomProduit;
-    cout << "Quel est le prix du produit : ";
-    cin >> prix;
-    cout << "Quelle est la quantité du produit : ";
-    cin >> quantite;
-    cout << "Quelle est le codebarre du produit : ";
-    cin >> codebarre;
-    cout << "Quelle est la catégorie du produit : ";
-    cin >> categorie;
-    cout << "quel est le detail du produit : ";
-    cin >> detail;
-    
-    Produit newproduit(prix, quantite, codebarre, categorie, detail, nomProduit);
-    tabproduit->push_back(newproduit);
-
-}
-
-
-void afficherlisteproduit(vector<Produit> tabproduit)
-{
-    for (int i=0; i<tabproduit.size(); i++)
+    p_quantite -= Vquantite;
+    if (p_quantite<0)
     {
-        tabproduit[i].affichage();
+        p_quantite=0;
     }
+}
+
+
+void Produit::affichage()
+{
+    cout << "Nom produit : " << p_nomProduit << endl;
+    cout << "Prix : " << p_prix << "€" << endl;
+    cout << "Quantite : " << p_quantite << endl;
+    cout << "Codebarre : " << p_codebarre <<endl;
+    cout << "Catégorie : " << p_categorie <<endl;
+}
+
+int Produit::codebarre()
+{
+    return p_codebarre;
+}
+
+
+Produit::Produit(int prix, int quantite, int codebarre, string categorie, string detail, string nomProduit) : p_prix(prix), p_quantite(quantite), p_codebarre(codebarre), p_categorie(categorie), p_detail(detail), p_nomProduit(nomProduit)
+{
     
 }
 
-
-void supprimerproduit(vector<Produit> *tabproduit)
-{
-    string Psupprimer;
-    cout << "Quel élément voulez vous supprimer ? : ";
-    cin >> Psupprimer;
-    int position = trouverelement(*tabproduit, Psupprimer);
-    *tabproduit->erase(tabproduit->begin()+position);
-}
