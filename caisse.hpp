@@ -5,10 +5,10 @@
 #include <stdio.h>
 #include <string>
 #include <vector>
-#include "produit.hpp"
+#include "produit.h"
 
 
-using namespace std;
+//using namespace std;
 
 
 
@@ -16,20 +16,17 @@ class Caisse
 {
     private :
     
-    vector<Produit> tablistclient;
+    std::vector<Produit> tablistclient;
     
     
     public :
     
-    void pay(vector<Produit> tabproduit, vector<Produit> tablisteclient);
-    void scan(vector<Produit> tabproduit, vector<Produit> *tablisteclient);
-    int trouverElementNom(vector<Produit> tabproduit, string element);
-    int trouverElementCodebarre(vector<Produit> tabproduit, int element);
-    void afficherlisteproduit(vector<Produit> tabproduit);
+    int prix(std::vector<Produit> tabProduit);
+    void pay(std::vector<Produit> tabproduit, std::vector<Produit> tablisteclient);
+    void scan(std::vector<Produit> tabproduit, std::vector<Produit> *tablisteclient);
+    void rajoutsctock(std::vector<Produit> tabProduit);
 
     
 };
-
-
 
 #endif
