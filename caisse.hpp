@@ -2,87 +2,33 @@
 #define DEF_CAISSE
 
 
-#include "caisse.hpp"
-#include "produit.hpp"
-#include <string.h>
 #include <stdio.h>
+#include <string>
 #include <vector>
-#include <iostream>
+#include "produit.hpp"
+
 
 using namespace std;
 
 
-void afficherlisteproduit(vector<Produit> tabproduit)
+
+class Caisse
 {
-    for (int i=0; i<tabproduit.size(); i++)
-    {
-        tabproduit[i].affichage();
-    }
+    private :
     
-}
-
-
-void Caisse::pay(vector<Produit> tabproduit, vector<Produit> tablisteclient)
-{
-    int nbrArticle;
-    cout << "Combien d'article avez vous a scanner : ";
-    cin >> nbrArticle;
-    for (int i=0; i<nbrArticle; i++)
-    {
-        Caisse:scan(tabproduit, &tablisteclient);
-    }
-    afficherlisteproduit(tablisteclient);
+    vector<Produit> tablistclient;
     
     
-}
-
-
-int trouverElementCodebarre(vector<Produit> tabproduit, int element)
-{
+    public :
     
-    int i=0;
-    for (i=0; i<tabproduit.size(); i++)
-    {
-        if (tabproduit[i].codebarre()==element)
-        {
-            break;
-        }
-    }
-    
-    return i;
-}
+    void pay(vector<Produit> tabproduit, vector<Produit> tablisteclient);
+    void scan(vector<Produit> tabproduit, vector<Produit> *tablisteclient);
+    int trouverElementNom(vector<Produit> tabproduit, string element);
+    int trouverElementCodebarre(vector<Produit> tabproduit, int element);
 
-
-int trouverElementNom(vector<Produit> tabproduit, string element)
-{
     
-    int i=0;
-    for (i=0; i<tabproduit.size(); i++)
-    {
-        if (tabproduit[i].p_nomProduit==element)
-        {
-            break;
-        }
-    }
-    
-    return i;
-}
+};
 
-
-void Caisse::scan(vector<Produit> tabproduit, vector<Produit> *tablisteclient)
-{
-    int codebarre, nbrarticle;
-    cout << "Rentrer le codebarre du produit : ";
-    cin >> codebarre;
-    
-    int position = trouverElementCodebarre(tabproduit, codebarre);
-    cout << "Combien de fois il y a cette article : ";
-    cin >> nbrarticle;
-    tablisteclient->push_back(tabproduit[position]);
-}
 
 
 #endif
-
-
-
