@@ -1,6 +1,6 @@
-#include "produit.hpp"
+#include "produit.h"
+#include "ajout.h"
 #include <string.h>
-#include <stdio.h>
 #include <iostream>
 
 
@@ -11,9 +11,13 @@ void Produit::modif_prix(int newPrix)
     p_prix = newPrix;
 }
 
+int Produit::infoquantite()
+{
+    return p_quantite;
+}
 
 
-void Produit::modif_quantite(int Vquantite)
+void Produit::modif_quantite(int Vquantite, vector<Produit> tabProduit, int position)
 {
     p_quantite -= Vquantite;
     if (p_quantite<0)
@@ -22,19 +26,32 @@ void Produit::modif_quantite(int Vquantite)
     }
 }
 
+void Produit::ajoutquantite(int nbrProduit)
+{
+    p_quantite += nbrProduit;
+}
+
 
 void Produit::affichage()
 {
+    cout << endl;
     cout << "Nom produit : " << p_nomProduit << endl;
     cout << "Prix : " << p_prix << "€" << endl;
     cout << "Quantite : " << p_quantite << endl;
     cout << "Codebarre : " << p_codebarre <<endl;
     cout << "Catégorie : " << p_categorie <<endl;
+    cout << endl;
 }
+
 
 int Produit::codebarre()
 {
     return p_codebarre;
+}
+
+int Produit::infoPrix()
+{
+    return p_prix;
 }
 
 
