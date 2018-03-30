@@ -25,6 +25,7 @@ class Caisse
     void scan(vector<Produit> tabproduit, vector<Produit> *tablisteclient);
     int trouverElementNom(vector<Produit> tabproduit, string element);
     int trouverElementCodebarre(vector<Produit> tabproduit, int element);
+    void afficherlisteproduit(vector<Produit> tabproduit);
 
     
 };
